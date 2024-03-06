@@ -17,4 +17,21 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class);
     }
+
+    /**
+     * @return array
+     */
+    public function getCorrectAnswersIds(): array
+    {
+        return self::answers()->where('is_correct', true)->pluck('id')->toArray();
+    }
+
+    /**
+     * @param $correctAnswersIds
+     * @return array
+     */
+    public function getCorrectAnswersTexts($correctAnswersIds): array
+    {
+        return self::answers()->whereIn('id', $correctAnswersIds)->pluck('text')->toArray();
+    }
 }
