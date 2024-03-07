@@ -9,6 +9,17 @@ use Illuminate\View\View;
 
 class GameController extends Controller
 {
+    /**
+     * @param GameAnswerHandler $gameAnswerHandler
+     */
+    public function __construct(
+        private readonly GameAnswerHandler $gameAnswerHandler
+    ) {
+    }
+
+    /**
+     * @return View
+     */
     public function index(): view
     {
         $questions = Question::inRandomOrder()->limit(5)->get();
@@ -16,14 +27,21 @@ class GameController extends Controller
         return view('game.index', compact('questions'));
     }
 
+    /**
+     * @param Request $request
+     * @return View
+     */
     public function answer(Request $request): view
     {
-        $handler = new GameAnswerHandler($request->input('answers', []));
-        $handler->handle();
+        $request->validate([
+            'answers' => 'required|array',
+        ]);
+
+        $this->gameAnswerHandler->handle($request->input('answers', []));
 
         return view('game.result', [
-            'totalScore' => $handler->getTotalScore(),
-            'feedback' => $handler->getFeedback()
+            'totalScore' => $this->gameAnswerHandler->getTotalScore(),
+            'feedback' => $this->gameAnswerHandler->getFeedback()
         ]);
     }
 }

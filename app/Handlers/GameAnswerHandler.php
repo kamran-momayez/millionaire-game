@@ -8,24 +8,42 @@ use Exception;
 
 class GameAnswerHandler
 {
-    private array $answers;
     private float $totalScore = 0;
     private array $feedback = [];
 
-    public function __construct(array $answers)
+    /**
+     * @return float
+     */
+    public function getTotalScore(): float
     {
-        $this->answers = $answers;
+        return $this->totalScore;
     }
 
-    public function handle(): void
+    /**
+     * @return array
+     */
+    public function getFeedback(): array
     {
-        $this->checkAnswer();
+        return $this->feedback;
+    }
+
+    /**
+     * @param array $answers
+     * @return void
+     */
+    public function handle(array $answers): void
+    {
+        $this->checkAnswer($answers);
         Result::saveResult($this->totalScore);
     }
 
-    private function checkAnswer(): void
+    /**
+     * @param $answers
+     * @return void
+     */
+    private function checkAnswer($answers): void
     {
-        foreach ($this->answers as $questionId => $selectedAnswerIds) {
+        foreach ($answers as $questionId => $selectedAnswerIds) {
             $question = Question::findOrFail($questionId);
             $points = 0;
 
@@ -72,16 +90,5 @@ class GameAnswerHandler
         $correctAnswersText = implode(', ', $correctAnswersText);
 
         throw new Exception("Incorrect answer. The correct answers are: $correctAnswersText.");
-    }
-
-
-    public function getTotalScore(): float
-    {
-        return $this->totalScore;
-    }
-
-    public function getFeedback(): array
-    {
-        return $this->feedback;
     }
 }
