@@ -31,6 +31,7 @@ class GameAnswerHandler
 
             try {
                 $points = $this->getPoints($question, $selectedAnswerIds);
+                $this->feedback[] = "Correct answer!";
             } catch (Exception $exception) {
                 $this->feedback[] = $exception->getMessage();
             }
