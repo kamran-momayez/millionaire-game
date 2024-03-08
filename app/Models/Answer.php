@@ -11,6 +11,8 @@ class Answer extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['text', 'is_correct'];
+
     /**
      * @return BelongsTo
      */
