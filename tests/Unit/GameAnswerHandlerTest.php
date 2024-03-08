@@ -77,4 +77,16 @@ class GameAnswerHandlerTest extends TestCase
         $this->assertEquals(["Incorrect answer. The correct answers are: a1, a2."], $this->handler->getFeedback());
         $this->assertDatabaseHas('results', ['score' => 0]);
     }
+
+    public function test_should_not_get_any_score_on_no_answer_selected()
+    {
+        $answers = [
+            1 => []
+        ];
+
+        $this->handler->handle($answers);
+        $this->assertEquals(0, $this->handler->getTotalScore());
+        $this->assertEquals(["Not answered!"], $this->handler->getFeedback());
+        $this->assertDatabaseHas('results', ['score' => 0]);
+    }
 }
