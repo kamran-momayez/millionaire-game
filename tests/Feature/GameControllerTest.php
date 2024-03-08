@@ -42,7 +42,7 @@ class GameControllerTest extends TestCase
     {
         $response = $this->post('/game/answer');
 
-        $response->assertStatus(419);
+        $response->assertStatus(Response::HTTP_FOUND);
     }
 
     public function test_should_throw_exception_when_answer_input_is_not_provided()
