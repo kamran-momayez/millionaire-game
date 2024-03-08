@@ -7,6 +7,7 @@
 - Clone the project
 - run `cd millionaire-game`
 - run `cp .env.example .env`
+- run `docker network create default-network`.
 - run `docker compose up --build -d`.
 - run `docker exec -it php chown -R www-data:www-data storage`.
 - run `docker exec -it php composer install`.
