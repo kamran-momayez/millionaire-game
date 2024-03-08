@@ -67,6 +67,9 @@ class GameAnswerHandler
     private function getPoints(Question $question, $selectedAnswerIds): float
     {
         $selectedAnswerIds = array_filter($selectedAnswerIds);
+        if (empty($selectedAnswerIds))
+            throw new Exception("Not answered!");
+
         $correctAnswersIds = $question->getCorrectAnswersIds();
 
         $correctAnswersDiff = count(array_diff($correctAnswersIds, $selectedAnswerIds));
