@@ -22,6 +22,13 @@ services:
     depends_on:
       - php
 
+  postgres-test:
+      image: postgres:16
+      container_name: postgres-test
+      environment:
+          POSTGRES_DB: db_test
+          POSTGRES_PASSWORD: o584alvFi9BunK7
+
 networks:
   default:
     name: default-network

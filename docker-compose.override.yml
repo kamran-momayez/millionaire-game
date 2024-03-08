@@ -20,3 +20,8 @@ services:
     volumes:
       - ./:/var/www/html/
       - ./docker/logs/php:/var/log/fpm-php.www.log/
+  postgres-test:
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./docker/data/postgres-test:/var/lib/postgresql/data
