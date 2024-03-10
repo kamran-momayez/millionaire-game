@@ -18,15 +18,36 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('game.index') }}">Play Game</a>
                 </li>
             </ul>
+            <ul class="navbar-nav">
+                @auth
+                    <li class="nav-item">
+                        <span class="nav-link">Welcome {{ Auth::user()->surname }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="nav-link btn btn-link">Logout</button>
+                        </form>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register.index') }}">Register</a>
+                    </li>
+                @endauth
+            </ul>
         </div>
     </div>
 </nav>
+
 
 <div class="container">
     @yield('content')

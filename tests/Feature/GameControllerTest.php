@@ -4,9 +4,12 @@ namespace Tests\Feature;
 
 use App\Handlers\GameAnswerHandler;
 use App\Http\Controllers\GameController;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use PHPUnit\Framework\MockObject\Exception;
@@ -30,8 +33,23 @@ class GameControllerTest extends TestCase
         $this->gameAnswerHandlerMock = $this->createMock(GameAnswerHandler::class);
     }
 
-    public function test_should_found_game_root_route()
+    public function test_should_redirect_to_login_when_user_is_not_authenticated()
     {
+        $response = $this->get('/game');
+
+        $response->assertStatus(Response::HTTP_FOUND);
+        $response->assertRedirect('/login');
+    }
+
+    public function test_should_found_game_root_route_when_user_is_authenticated()
+    {
+        $user = User::factory()->create([
+            'surname' => 'test-user',
+            'password' => Hash::make('password'),
+        ]);
+
+        Auth::login($user);
+
         $response = $this->get('/game');
 
         $response->assertStatus(Response::HTTP_OK);

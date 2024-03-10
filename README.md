@@ -13,7 +13,7 @@
 - run `docker exec -it php composer install`.
 - run `docker exec -it php php artisan migrate --seed`.
 
-Open `localhost:8081/game` for playing the game!
+Open `localhost:8081` for playing the game!
 
 **For running feature and unit tests:**
 - run `docker exec -it php php artisan test`
