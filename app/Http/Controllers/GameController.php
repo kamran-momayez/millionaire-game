@@ -20,7 +20,7 @@ class GameController extends Controller
     /**
      * @return View
      */
-    public function index(): view
+    public function index(): View
     {
         $questions = Question::inRandomOrder()->limit(5)->get();
 
@@ -31,7 +31,7 @@ class GameController extends Controller
      * @param Request $request
      * @return View
      */
-    public function answer(Request $request): view
+    public function answer(Request $request): View
     {
         $request->validate([
             'answers' => 'required|array',
