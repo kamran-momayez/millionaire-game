@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,5 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/game', [GameController::class, 'index'])->name('game.index');
-Route::post('/game/answer', [GameController::class, 'answer'])->name('game.answer');
+Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
+Route::post('/register', [RegisterController::class, 'store'])->name('register');
+
+Route::prefix('game')->group(function () {
+    Route::get('/', [GameController::class, 'index'])->name('game.index');
+    Route::post('/answer', [GameController::class, 'answer'])->name('game.answer');
+});
