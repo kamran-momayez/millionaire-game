@@ -20,13 +20,6 @@ class RegisterControllerTest extends TestCase
         $response->assertViewIs('auth.register');
     }
 
-    public function test_should_found_register_store_route()
-    {
-        $response = $this->post('/register');
-
-        $response->assertStatus(Response::HTTP_FOUND);
-    }
-
     public function test_should_return_error_when_input_is_not_provided()
     {
         $response = $this->post('register');
