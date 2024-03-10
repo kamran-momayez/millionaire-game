@@ -34,8 +34,8 @@ class CreateAdmin extends Command
         $surname = $this->argument('surname');
         $password = $this->argument('password');
 
-        if (empty($name) || empty($surname) || empty($password)) {
-            $this->error('Please provide the credentials');
+        if (strlen($password) < 6) {
+            $this->error('Password must be a minimum of 6 characters.');
             return CommandAlias::FAILURE;
         }
 

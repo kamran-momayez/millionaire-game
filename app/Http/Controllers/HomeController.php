@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Result;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -11,6 +12,8 @@ class HomeController extends Controller
      */
     public function index(): View
     {
-        return view('home');
+        $topScores = Result::getTopTenGames();
+
+        return view('home')->with('topScores', $topScores);
     }
 }

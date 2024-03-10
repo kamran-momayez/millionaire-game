@@ -6,8 +6,13 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Welcome to the Millionaire Game Home Page!</div>
-
                     <div class="card-body">
+                        <h3>Top Ten Players!</h3>
+                        <ol>
+                            @foreach($topScores as $score)
+                                <li>{{ $score->name }} : {{ $score->score }}</li>
+                            @endforeach
+                        </ol>
                         @auth
                             Go and play the <a href="{{ route('game.index') }}">Game</a>!
                         @else

@@ -15,12 +15,7 @@ class Question extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'text',
-        'points',
-        'password',
-        'role',
-    ];
+    protected $fillable = ['text', 'points'];
 
     /**
      * @return HasMany
