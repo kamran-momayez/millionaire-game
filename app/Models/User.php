@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'surname',
         'password',
+        'role',
     ];
 
     /**
@@ -41,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'ROLE_ADMIN';
+    }
 }

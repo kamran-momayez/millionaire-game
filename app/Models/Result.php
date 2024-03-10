@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Result extends Model
 {
@@ -12,7 +13,7 @@ class Result extends Model
     public static function saveResult($totalScore)
     {
         $result = new self();
-        $result->user_id = 1; // Auth will be added.
+        $result->user_id = Auth::user()->id;
         $result->score = $totalScore;
         $result->save();
     }
