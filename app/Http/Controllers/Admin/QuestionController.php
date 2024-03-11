@@ -115,7 +115,7 @@ class QuestionController extends Controller
     private function createAnswers(Request $request, Question $question): void
     {
         foreach ($request->input('answers') as $answer) {
-            $answer['is_correct'] = isset($answer['is_correct']);
+            $answer['is_correct'] = $answer['is_correct'] ?? 0;
             $question->answers()->create($answer);
         }
     }
