@@ -1,18 +1,15 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
 {
     use RefreshDatabase;
-    use WithFaker;
 
     public function test_should_found_login_index_route()
     {
@@ -36,12 +33,12 @@ class LoginControllerTest extends TestCase
     public function test_should_login_when_credentials_are_valid()
     {
         $user = User::factory()->create([
-            'surname' => 'test-user',
-            'password' => Hash::make('password'),
+            'surname' => 'surname',
+            'password' => 'password',
         ]);
 
         $response = $this->post('/login', [
-            'surname' => 'test-user',
+            'surname' => 'surname',
             'password' => 'password',
         ]);
 

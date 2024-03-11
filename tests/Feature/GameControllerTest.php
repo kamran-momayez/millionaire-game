@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
@@ -20,16 +19,14 @@ use Tests\TestCase;
 class GameControllerTest extends TestCase
 {
     use RefreshDatabase;
-    use WithFaker;
 
     private GameAnswerHandler|MockObject $gameAnswerHandlerMock;
 
-    /**
-     * @throws Exception
-     */
-    public function setUp(): void
+
+    public function __construct(string $name)
     {
-        parent::setUp();
+        parent::__construct($name);
+
         $this->gameAnswerHandlerMock = $this->createMock(GameAnswerHandler::class);
     }
 
@@ -44,8 +41,8 @@ class GameControllerTest extends TestCase
     public function test_should_found_game_root_route_when_user_is_authenticated()
     {
         $user = User::factory()->create([
-            'surname' => 'test-user',
-            'password' => Hash::make('password'),
+            'surname' => 'surname',
+            'password' => 'password',
         ]);
 
         Auth::login($user);
