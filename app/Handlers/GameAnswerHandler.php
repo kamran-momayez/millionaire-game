@@ -5,6 +5,7 @@ namespace App\Handlers;
 use App\Models\Question;
 use App\Models\Result;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class GameAnswerHandler
 {
@@ -34,7 +35,11 @@ class GameAnswerHandler
     public function handle(array $answers): void
     {
         $this->checkAnswer($answers);
-        Result::saveResult($this->totalScore);
+
+        Result::create([
+            'user_id' => Auth::user()->id,
+            'score' => $this->totalScore
+        ]);
     }
 
     /**

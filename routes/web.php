@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GameController;
@@ -32,3 +33,16 @@ Route::middleware('auth')->group(function () {
         Route::post('/answer', [GameController::class, 'answer'])->name('game.answer');
     });
 });
+
+Route::middleware(['auth', 'auth.admin'])->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/questions', [QuestionController::class, 'index'])->name('admin.questions.index');
+        Route::get('/questions/create', [QuestionController::class, 'create'])->name('admin.questions.create');
+        Route::post('/questions', [QuestionController::class, 'store'])->name('admin.questions.store');
+        Route::get('/questions/{question}/edit', [QuestionController::class, 'edit'])->name('admin.questions.edit');
+        Route::put('/questions/{question}', [QuestionController::class, 'update'])->name('admin.questions.update');
+        Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('admin.questions.destroy');
+
+    });
+});
+;

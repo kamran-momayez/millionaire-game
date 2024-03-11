@@ -11,6 +11,13 @@ class Question extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = ['text', 'points'];
+
+    /**
      * @return HasMany
      */
     public function answers(): HasMany
