@@ -21,7 +21,7 @@ class Result extends Model
     /**
      * @return Collection
      */
-    public static function getTopTenGames(): Collection
+    public function getTopTenGames(): Collection
     {
         return Result::select('name', DB::raw('MAX(score) as score'))
             ->join('users', 'user_id', '=', 'users.id')

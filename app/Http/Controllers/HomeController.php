@@ -8,11 +8,12 @@ use Illuminate\View\View;
 class HomeController extends Controller
 {
     /**
+     * @param Result $result
      * @return View
      */
-    public function index(): View
+    public function index(Result $result): View
     {
-        $topScores = Result::getTopTenGames();
+        $topScores = $result->getTopTenGames();
 
         return view('home')->with('topScores', $topScores);
     }
