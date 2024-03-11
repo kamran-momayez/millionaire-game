@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class GameAnswerHandlerTest extends TestCase
@@ -19,7 +20,9 @@ class GameAnswerHandlerTest extends TestCase
     {
         parent::setUp();
 
-        User::factory()->create();
+        $user = User::factory()->create();
+        Auth::login($user);
+
         $question = Question::factory()->create(['text' => 'q1', 'points' => 10]);
 
         $correctAnswersData = [
@@ -51,7 +54,7 @@ class GameAnswerHandlerTest extends TestCase
         $this->handler->handle($answers);
         $this->assertEquals(10, $this->handler->getTotalScore());
         $this->assertEquals(["Correct answer!"], $this->handler->getFeedback());
-        $this->assertDatabaseHas('results', ['score' => 10]);
+        $this->assertDatabaseHas('results', ['id' => 1, 'score' => 10]);
     }
 
     public function test_should_get_partial_score_on_partial_correct_answer()
@@ -63,7 +66,7 @@ class GameAnswerHandlerTest extends TestCase
         $this->handler->handle($answers);
         $this->assertEquals(5, $this->handler->getTotalScore());
         $this->assertEquals(["Correct answer!"], $this->handler->getFeedback());
-        $this->assertDatabaseHas('results', ['score' => 5]);
+        $this->assertDatabaseHas('results', ['id' => 1, 'score' => 5]);
     }
 
     public function test_should_not_get_any_score_on_incorrect_answer()
@@ -75,7 +78,7 @@ class GameAnswerHandlerTest extends TestCase
         $this->handler->handle($answers);
         $this->assertEquals(0, $this->handler->getTotalScore());
         $this->assertEquals(["Incorrect answer. The correct answers are: a1, a2."], $this->handler->getFeedback());
-        $this->assertDatabaseHas('results', ['score' => 0]);
+        $this->assertDatabaseHas('results', ['id' => 1, 'score' => 0]);
     }
 
     public function test_should_not_get_any_score_on_no_answer_selected()
@@ -87,6 +90,6 @@ class GameAnswerHandlerTest extends TestCase
         $this->handler->handle($answers);
         $this->assertEquals(0, $this->handler->getTotalScore());
         $this->assertEquals(["Not answered!"], $this->handler->getFeedback());
-        $this->assertDatabaseHas('results', ['score' => 0]);
+        $this->assertDatabaseHas('results', ['id' => 1, 'score' => 0]);
     }
 }
