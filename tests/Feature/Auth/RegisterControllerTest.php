@@ -1,16 +1,14 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class RegisterControllerTest extends TestCase
 {
     use RefreshDatabase;
-    use WithFaker;
 
     public function test_should_found_register_index_route()
     {
@@ -30,9 +28,9 @@ class RegisterControllerTest extends TestCase
     public function test_should_register_user_when_validation_passed()
     {
         $userData = [
-            'name' => $this->faker->firstName,
-            'surname' => $this->faker->lastName,
-            'password' => $this->faker->password(8),
+            'name' => 'name',
+            'surname' => 'surname',
+            'password' => 'password',
         ];
 
         $response = $this->post('register', $userData);
