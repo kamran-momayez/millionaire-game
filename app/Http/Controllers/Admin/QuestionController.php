@@ -93,7 +93,7 @@ class QuestionController extends Controller
      * Validate question data from the request.
      *
      * @param Request $request
-     * @return array
+     * @return array<mixed>
      */
     private function validateQuestion(Request $request): array
     {
@@ -114,7 +114,8 @@ class QuestionController extends Controller
      */
     private function createAnswers(Request $request, Question $question): void
     {
-        foreach ($request->input('answers') as $answer) {
+        /** @var array<mixed> $answer */
+        foreach ($request->input('answers') as $answer) { /** @phpstan-ignore-line */
             $answer['is_correct'] = $answer['is_correct'] ?? 0;
             $question->answers()->create($answer);
         }

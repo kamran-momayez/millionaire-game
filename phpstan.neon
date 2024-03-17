@@ -1,0 +1,11 @@
+parameters:
+    checkGenericClassInNonGenericObjectType: false
+    ignoreErrors:
+            - '#Cannot access property \$[a-zA-Z0-9\\_]+ on App\\Models#'
+    level: 9
+    paths:
+        - app
+    reportUnmatchedIgnoredErrors: false
+includes:
+    - vendor/nunomaduro/larastan/extension.neon
+

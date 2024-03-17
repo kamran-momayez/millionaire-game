@@ -42,7 +42,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $request->input('name'),
             'surname' => $request->input('surname'),
-            'password' => Hash::make($request->input('password')),
+            'password' => Hash::make($request->input('password')), /** @phpstan-ignore-line */
         ]);
 
         Auth::login($user);
