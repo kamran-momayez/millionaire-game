@@ -1,0 +1,69 @@
+grumphp:
+  stop_on_failure: true
+  tasks:
+    git_blacklist:
+      keywords:
+        - "die\\("
+        - "var_dump\\("
+        - "exit\\("
+        - "dump\\("
+        - "print_r\\("
+        - "die;"
+        - "exit;"
+      triggered_by: [ 'php' ]
+      regexp_type: E
+      metadata:
+        priority: 4
+
+    phplint:
+      exclude: [ ]
+      jobs: ~
+      short_open_tag: false
+      ignore_patterns: [ ]
+      triggered_by: [ 'php', 'phtml', 'php3', 'php4', 'php5' ]
+      metadata:
+        priority: 3
+
+    yamllint:
+      whitelist_patterns: [ ]
+      ignore_patterns: [ ]
+      object_support: false
+      exception_on_invalid_type: true
+      parse_constant: true
+      parse_custom_tags: true
+      metadata:
+        priority: 3
+
+    phpcsfixer:
+      allow_risky: ~
+      cache_file: ~
+      config: '.php-cs-fixer.dist.php'
+      rules: []
+      using_cache: ~
+      config_contains_finder: true
+      verbose: true
+      diff: true
+      triggered_by: [ 'php' ]
+      metadata:
+        priority: 2
+
+    phpstan:
+      autoload_file: ~
+      configuration: ~
+      level: 0
+      force_patterns: [ ]
+      ignore_patterns: [ ]
+      triggered_by: [ 'php' ]
+      memory_limit: "-1"
+      use_grumphp_paths: true
+      metadata:
+        priority: 1
+
+    phpunit:
+      config_file: ~
+      testsuite: ~
+      group: [ ]
+      exclude_group: [ ]
+      always_execute: false
+      metadata:
+        priority: 0
