@@ -37,7 +37,7 @@ class GameController extends Controller
             'answers' => 'required|array',
         ]);
 
-        $this->gameAnswerHandler->handle($request->input('answers', []));
+        $this->gameAnswerHandler->handle($request->input('answers', [])); /** @phpstan-ignore-line */
 
         return view('game.result', [
             'totalScore' => $this->gameAnswerHandler->getTotalScore(),

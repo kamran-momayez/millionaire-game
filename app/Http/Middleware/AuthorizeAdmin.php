@@ -16,7 +16,7 @@ class AuthorizeAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->user()->isAdmin()) {
+        if (!auth()->user()->isAdmin()) { /** @phpstan-ignore-line */
             abort(403, 'Unauthorized');
         }
 

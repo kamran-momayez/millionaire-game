@@ -26,7 +26,7 @@ class Question extends Model
     }
 
     /**
-     * @return array
+     * @return array<array-key, mixed>
      */
     public function getCorrectAnswersIds(): array
     {
@@ -34,10 +34,10 @@ class Question extends Model
     }
 
     /**
-     * @param $correctAnswersIds
-     * @return array
+     * @param array<array-key, mixed> $correctAnswersIds
+     * @return array<array-key, mixed>
      */
-    public function getCorrectAnswersTexts($correctAnswersIds): array
+    public function getCorrectAnswersTexts(array $correctAnswersIds): array
     {
         return self::answers()->whereIn('id', $correctAnswersIds)->pluck('text')->toArray();
     }

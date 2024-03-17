@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class GameAnswerHandler
 {
     private float $totalScore = 0;
+
+    /**
+     * @var string[]
+     */
     private array $feedback = [];
 
     /**
@@ -21,7 +25,7 @@ class GameAnswerHandler
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getFeedback(): array
     {
@@ -29,7 +33,7 @@ class GameAnswerHandler
     }
 
     /**
-     * @param array $answers
+     * @param array<int, int[]> $answers
      * @return void
      */
     public function handle(array $answers): void
@@ -43,10 +47,10 @@ class GameAnswerHandler
     }
 
     /**
-     * @param $answers
+     * @param array<int, int[]> $answers
      * @return void
      */
-    private function checkAnswer($answers): void
+    private function checkAnswer(array $answers): void
     {
         foreach ($answers as $questionId => $selectedAnswerIds) {
             $question = Question::findOrFail($questionId);
@@ -65,11 +69,11 @@ class GameAnswerHandler
 
     /**
      * @param Question $question
-     * @param $selectedAnswerIds
+     * @param int[] $selectedAnswerIds
      * @return float
      * @throws Exception
      */
-    private function getPoints(Question $question, $selectedAnswerIds): float
+    private function getPoints(Question $question, array $selectedAnswerIds): float
     {
         $selectedAnswerIds = array_filter($selectedAnswerIds);
         if (empty($selectedAnswerIds)) {
