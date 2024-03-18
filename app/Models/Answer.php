@@ -16,12 +16,4 @@ class Answer extends Model
      * @var array<int, string>
      */
     protected $fillable = ['text', 'is_correct'];
-
-    /**
-     * @return BelongsTo
-     */
-    public function question(): BelongsTo
-    {
-        return $this->belongsTo(Question::class);
-    }
 }

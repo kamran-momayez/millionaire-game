@@ -39,19 +39,14 @@ class CreateAdmin extends Command
             return CommandAlias::FAILURE;
         }
 
-        try {
-            User::create([
-                'name' => $name,
-                'surname' => $surname,
-                'password' => Hash::make($password),
-                'role' => 'ROLE_ADMIN',
-            ]);
+        User::create([
+            'name' => $name,
+            'surname' => $surname,
+            'password' => Hash::make($password),
+            'role' => 'ROLE_ADMIN',
+        ]);
 
-            $this->info('New admin is created!');
-            return CommandAlias::SUCCESS;
-        } catch (\Exception $exception) {
-            $this->error('There is an error: ' . $exception->getMessage());
-            return CommandAlias::FAILURE;
-        }
+        $this->info('New admin is created!');
+        return CommandAlias::SUCCESS;
     }
 }
